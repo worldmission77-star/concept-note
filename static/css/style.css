@@ -215,6 +215,12 @@ button:hover, .btn:hover, .btn-secondary:hover, .btn-danger:hover { opacity: 0.9
     color: #bbb;
 }
 
+.parent-note-date {
+    font-size: 20px;
+    font-weight: 600;
+    color: #333;
+}
+
 .back-link {
     display: inline-block;
     margin-top: 10px;
