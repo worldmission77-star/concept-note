@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}로그인 - 개념노트{% endblock %}
+{% block content %}
+<div class="card form-card">
+    <h1>로그인</h1>
+    <form method="post">
+        <label>아이디
+            <input type="text" name="username" required autofocus>
+        </label>
+        <label>비밀번호
+            <input type="password" name="password" required>
+        </label>
+        <button type="submit">로그인</button>
+    </form>
+    <p class="muted">계정은 선생님(관리자)이 만들어드립니다. 아이디/비밀번호를 모르시면 선생님께 문의해주세요.</p>
+</div>
+{% endblock %}

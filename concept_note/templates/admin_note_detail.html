@@ -1,0 +1,106 @@
+{% extends "base.html" %}
+{% block title %}{{ note['title'] }} - 관리자{% endblock %}
+{% block content %}
+<div class="card detail-card">
+    <div class="detail-header">
+        <div>
+            <div class="note-date">
+                {{ note['student_name'] }} ({{ note['grade'] }}) · {{ note['note_date'] }}
+            </div>
+            <h1>{{ note['title'] }}</h1>
+        </div>
+        <div class="detail-actions">
+            <form method="post" action="{{ url_for('admin_note_delete', note_id=note['id']) }}"
+                  onsubmit="return confirm('정말 삭제하시겠습니까?');">
+                <button type="submit" class="btn-danger">삭제</button>
+            </form>
+        </div>
+    </div>
+
+    {% if note['photo_filename'] %}
+    <div class="detail-photo">
+        <img src="{{ url_for('uploaded_file', filename=note['photo_filename']) }}" alt="첨부 사진">
+    </div>
+    {% endif %}
+
+    <div class="detail-content">{{ note['content'] }}</div>
+
+    <div class="stamp-row">
+        <div class="stamp-slot">
+            <span class="stamp-slot-label">선생님 확인</span>
+            {% if note['checked_at'] %}
+            <img class="stamp-img" src="{{ url_for('static', filename='images/stamp_teacher.png') }}" alt="참 잘했어요 도장">
+            {% else %}
+            <div class="stamp-empty">확인 전</div>
+            {% endif %}
+        </div>
+        <div class="stamp-slot">
+            <span class="stamp-slot-label">학부모님 확인</span>
+            {% if note['parent_checked_at'] %}
+            <img class="stamp-img" src="{{ url_for('static', filename='images/stamp_parent.png') }}" alt="확인했습니다 도장">
+            {% else %}
+            <div class="stamp-empty">확인 전</div>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="card feedback-form-card">
+        <h2>확인 도장 찍기 / 코멘트</h2>
+        <form method="post" action="{{ url_for('admin_note_feedback', note_id=note['id']) }}">
+            <textarea name="feedback" rows="4" placeholder="학생에게 남길 코멘트를 입력하세요 (비워두고 저장하면 확인 도장만 찍힙니다)">{{ note['feedback'] or '' }}</textarea>
+            <button type="submit">확인 도장 찍기</button>
+        </form>
+        {% if note['checked_at'] %}
+        <p class="muted">마지막 확인: {{ note['checked_at'] }}</p>
+        {% endif %}
+    </div>
+
+    <div class="card parent-link-card">
+        <h2>학부모님께 보낼 메시지</h2>
+        <p class="muted">아래 메시지를 복사해서 문자나 카카오톡에 붙여넣으세요. 링크 부분은 자동으로 눌러지는 링크가 됩니다.</p>
+        <textarea id="parent-message-input" rows="3" readonly onclick="this.select();">{{ parent_message }}</textarea>
+        <div class="link-copy-row">
+            <button type="button" class="btn" onclick="copyParentMessage();">메시지 복사</button>
+        </div>
+        <div class="copy-feedback" id="copy-feedback-message"></div>
+
+        <p class="muted" style="margin-top:16px;">링크만 필요하면 아래에서 따로 복사할 수 있습니다.</p>
+        <div class="link-copy-row">
+            <input type="text" id="parent-link-input" value="{{ parent_url }}" readonly onclick="this.select();">
+            <button type="button" class="btn-secondary" onclick="copyParentLink();">링크만 복사</button>
+        </div>
+        <div class="copy-feedback" id="copy-feedback-link"></div>
+
+        {% if note['parent_checked_at'] %}
+        <p class="muted">학부모님 확인 완료: {{ note['parent_checked_at'] }}</p>
+        {% endif %}
+        <form method="post" action="{{ url_for('admin_note_regenerate_link', note_id=note['id']) }}"
+              onsubmit="return confirm('새 링크를 만들면 기존 링크는 더 이상 작동하지 않습니다. 계속할까요?');">
+            <button type="submit" class="btn-secondary">링크 재발급 (분실/유출 시)</button>
+        </form>
+    </div>
+
+    <a class="back-link" href="{{ url_for('admin_dashboard') }}">&larr; 전체 노트 목록으로</a>
+</div>
+
+<script>
+function copyToClipboard(elementId, feedbackId) {
+    var el = document.getElementById(elementId);
+    el.select();
+    el.setSelectionRange(0, 99999);
+    var feedback = document.getElementById(feedbackId);
+    navigator.clipboard.writeText(el.value).then(function () {
+        feedback.textContent = '복사되었습니다.';
+        setTimeout(function () { feedback.textContent = ''; }, 2000);
+    }).catch(function () {
+        feedback.textContent = '복사에 실패했습니다. 직접 선택해서 복사해주세요.';
+    });
+}
+function copyParentMessage() {
+    copyToClipboard('parent-message-input', 'copy-feedback-message');
+}
+function copyParentLink() {
+    copyToClipboard('parent-link-input', 'copy-feedback-link');
+}
+</script>
+{% endblock %}
