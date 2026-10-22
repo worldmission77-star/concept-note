@@ -65,7 +65,7 @@
         </div>
 
         {% if note['parent_checked_at'] %}
-        <p class="muted">확인 완료: {{ note['parent_checked_at'] }} — 확인해주셔서 감사합니다.</p>
+        <p class="muted">확인해주셔서 감사합니다.</p>
         {% else %}
         <div class="card feedback-form-card">
             <h2>우리 아이가 이 개념을 잘 이해하고 있는지 확인해주세요</h2>
@@ -78,5 +78,11 @@
         {% endif %}
     </div>
 </main>
+
+{% if request.args.get('confirmed') %}
+<script>
+alert('확인해주셔서 감사합니다.');
+</script>
+{% endif %}
 </body>
 </html>
