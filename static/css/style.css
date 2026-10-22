@@ -1,0 +1,456 @@
+:root {
+    --primary: #4f6ef2;
+    --primary-dark: #3a54c9;
+    --danger: #e0553e;
+    --bg: #f5f6fa;
+    --card-bg: #ffffff;
+    --text: #2c2f38;
+    --muted: #8a8f9c;
+    --border: #e3e5ec;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", "Segoe UI", sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+.topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 24px;
+    background: var(--card-bg);
+    border-bottom: 1px solid var(--border);
+}
+
+.brand {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+}
+
+.topbar nav { display: flex; align-items: center; gap: 16px; }
+.topbar nav a { color: var(--primary); text-decoration: none; font-weight: 600; }
+.topbar nav a:hover { text-decoration: underline; }
+.user-name { color: var(--muted); font-size: 0.9rem; }
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 24px;
+}
+
+.flashes {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 16px;
+}
+.flashes li {
+    background: #fff4e5;
+    border: 1px solid #f0c987;
+    color: #8a5b00;
+    padding: 10px 14px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+}
+
+.card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 28px;
+}
+
+.form-card { max-width: 480px; margin: 0 auto; }
+.form-card h1 { margin-top: 0; font-size: 1.4rem; }
+
+form label {
+    display: block;
+    margin-bottom: 16px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+form input[type="text"],
+form input[type="password"],
+form input[type="tel"],
+form input[type="date"],
+form input[type="file"],
+form select,
+form textarea {
+    display: block;
+    width: 100%;
+    margin-top: 6px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 16px; /* 16px+ prevents iOS Safari auto-zoom on focus */
+    font-family: inherit;
+    color: var(--text);
+}
+
+form textarea { resize: vertical; }
+
+.checkbox-label { display: flex; align-items: center; gap: 6px; font-weight: 400; margin-top: 8px; }
+.checkbox-label input { width: auto; margin: 0; }
+
+button, .btn, .btn-secondary, .btn-danger {
+    display: inline-block;
+    min-height: 44px; /* touch-friendly tap target */
+    padding: 10px 18px;
+    border-radius: 8px;
+    border: none;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+button[type="submit"], .btn {
+    background: var(--primary);
+    color: #fff;
+}
+button[type="submit"]:hover, .btn:hover { background: var(--primary-dark); }
+
+.btn-secondary {
+    background: #eceef4;
+    color: var(--text);
+}
+.btn-secondary:hover { background: #dfe2ec; }
+
+.btn-danger {
+    background: #fdecea;
+    color: var(--danger);
+}
+.btn-danger:hover { background: #fadbd6; }
+
+.form-actions { display: flex; gap: 10px; margin-top: 8px; }
+
+.muted { color: var(--muted); font-size: 0.9rem; }
+.muted a { color: var(--primary); }
+
+.list-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.list-header h1 { margin: 0; font-size: 1.4rem; }
+
+.empty { color: var(--muted); text-align: center; padding: 60px 0; }
+
+.note-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+}
+
+.note-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text);
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.15s ease;
+}
+.note-card:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+
+.note-thumb { width: 100%; aspect-ratio: 4 / 3; overflow: hidden; background: #eef0f6; }
+.note-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.note-thumb-empty { display: flex; align-items: center; justify-content: center; font-size: 2rem; }
+
+.note-info { padding: 12px 14px; }
+.note-date { font-size: 0.78rem; color: var(--muted); margin-bottom: 4px; }
+.note-title { font-weight: 700; margin-bottom: 4px; }
+.note-preview { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
+
+.detail-card { max-width: 640px; margin: 0 auto; }
+.detail-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+    gap: 12px;
+}
+.detail-header h1 { margin: 4px 0 0; font-size: 1.5rem; }
+.detail-actions { display: flex; gap: 8px; flex-shrink: 0; }
+
+.detail-photo { margin-bottom: 20px; border-radius: 10px; overflow: hidden; }
+.detail-photo img { width: 100%; display: block; }
+
+.detail-content { white-space: pre-wrap; line-height: 1.7; margin-bottom: 24px; }
+
+.current-photo { margin-bottom: 16px; }
+.current-photo img { max-width: 100%; border-radius: 8px; display: block; margin-bottom: 6px; }
+
+.back-link { color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.9rem; }
+.back-link:hover { text-decoration: underline; }
+
+/* ---------- 선생님 피드백 ---------- */
+.feedback-box {
+    background: #eef6ff;
+    border: 1px solid #cfe3fb;
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 20px;
+}
+.feedback-label { font-weight: 700; font-size: 0.85rem; color: var(--primary-dark); margin-bottom: 6px; }
+.feedback-text { white-space: pre-wrap; line-height: 1.6; }
+.feedback-checked-only { color: var(--primary-dark); font-weight: 600; }
+
+/* ---------- 도장 (선생님 / 학부모 확인) ---------- */
+.stamp-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    margin: 18px 0;
+}
+.stamp-slot { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.stamp-slot-label { font-size: 0.78rem; color: var(--muted); font-weight: 700; }
+
+.stamp-img {
+    width: 88px;
+    height: 88px;
+    object-fit: contain;
+    transform: rotate(-6deg);
+}
+.stamp-empty {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    border: 2px dashed var(--border);
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 0.75rem;
+}
+
+.parent-link-card { margin: 20px 0; }
+.parent-link-card h2 { margin-top: 0; font-size: 1.05rem; }
+.parent-link-card textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 16px;
+    font-family: inherit;
+    background: #f7f8fc;
+    color: var(--text);
+    resize: vertical;
+    margin-bottom: 10px;
+}
+.link-copy-row { display: flex; gap: 8px; }
+.link-copy-row input {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-family: monospace;
+    background: #f7f8fc;
+    color: var(--text);
+}
+.copy-feedback { font-size: 0.8rem; color: #1b7a4d; margin-top: 6px; min-height: 1.1em; }
+
+.badge-checked {
+    display: inline-block;
+    margin-left: 8px;
+    font-size: 0.75rem;
+    color: #1b7a4d;
+    background: #e6f6ee;
+    border: 1px solid #bfe8d2;
+    padding: 2px 8px;
+    border-radius: 999px;
+    font-weight: 700;
+}
+.badge-parent-checked {
+    color: #1d4ea8;
+    background: #eaf1ff;
+    border-color: #c6d9fb;
+}
+
+/* ---------- 관리자: 필터 바 ---------- */
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: 12px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 20px;
+}
+.filter-bar label {
+    display: flex;
+    flex-direction: column;
+    font-size: 0.85rem;
+    font-weight: 600;
+    gap: 4px;
+    margin: 0;
+}
+.filter-bar input, .filter-bar select {
+    padding: 8px 10px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    font-family: inherit;
+}
+.filter-bar button { flex-shrink: 0; }
+
+/* ---------- 관리자: 전체 노트 리스트 ---------- */
+.admin-note-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.admin-note-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 10px 14px;
+    text-decoration: none;
+    color: var(--text);
+}
+.admin-note-row:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.08); }
+.admin-note-thumb {
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+    background: #eef0f6;
+}
+.admin-note-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.admin-note-thumb-empty { display: flex; align-items: center; justify-content: center; font-size: 1.4rem; }
+.admin-note-meta { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+.admin-note-student { font-weight: 700; font-size: 0.85rem; color: var(--primary-dark); }
+
+/* ---------- 관리자: 학생 테이블 ---------- */
+.student-table-wrap { overflow-x: auto; }
+.student-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+}
+.student-table th, .student-table td {
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+.student-table th { background: #f7f8fc; font-weight: 700; color: var(--muted); font-size: 0.8rem; }
+.student-table tr:last-child td { border-bottom: none; }
+
+.feedback-form-card { margin: 20px 0; background: #fafbff; }
+.feedback-form-card h2 { margin-top: 0; font-size: 1.05rem; }
+.feedback-form-card textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 16px;
+    margin-bottom: 10px;
+    resize: vertical;
+}
+
+@media (max-width: 600px) {
+    .filter-bar { flex-direction: column; align-items: stretch; }
+    .filter-bar button, .filter-bar .btn-secondary { width: 100%; }
+
+    .student-table thead { display: none; }
+    .student-table, .student-table tbody, .student-table tr, .student-table td {
+        display: block;
+        width: 100%;
+    }
+    .student-table tr {
+        border-bottom: 8px solid var(--bg);
+        padding: 8px 0;
+    }
+    .student-table td {
+        border-bottom: none;
+        white-space: normal;
+        display: flex;
+        justify-content: space-between;
+        gap: 12px;
+    }
+    .student-table td[data-label]::before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--muted);
+        flex-shrink: 0;
+    }
+    .student-table td[data-label=""]::before { content: none; }
+
+    .admin-note-row { align-items: flex-start; }
+}
+
+/* ---------- 모바일 대응 (휴대폰 화면) ---------- */
+@media (max-width: 600px) {
+    .topbar {
+        padding: 12px 16px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .topbar nav { gap: 12px; flex-wrap: wrap; }
+    .brand { font-size: 1.05rem; }
+
+    .container { padding: 16px; }
+
+    .card { padding: 20px 18px; }
+    .form-card { max-width: 100%; }
+
+    .list-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+    .list-header .btn { width: 100%; }
+
+    .note-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .form-actions { flex-direction: column; }
+    .form-actions button, .form-actions .btn-secondary { width: 100%; }
+
+    .detail-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    .detail-actions { width: 100%; }
+    .detail-actions .btn-secondary, .detail-actions form, .detail-actions .btn-danger {
+        flex: 1;
+    }
+    .detail-actions form { display: flex; }
+    .detail-actions .btn-danger { width: 100%; }
+}
+
+@media (max-width: 380px) {
+    .note-grid {
+        grid-template-columns: 1fr;
+    }
+}

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}개념노트{% endblock %}</title>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<header class="topbar">
+    <a class="brand" href="{{ url_for('index') }}">📘 개념노트</a>
+    {% if session.get('user_id') %}
+    <nav>
+        <span class="user-name">{{ session.get('user_name') }}님</span>
+        {% if session.get('is_admin') %}
+        <a href="{{ url_for('admin_dashboard') }}">전체 노트</a>
+        <a href="{{ url_for('admin_students') }}">학생 관리</a>
+        {% else %}
+        <a href="{{ url_for('note_new') }}">+ 새 노트</a>
+        {% endif %}
+        <a href="{{ url_for('account_password') }}">비밀번호 변경</a>
+        <a href="{{ url_for('logout') }}">로그아웃</a>
+    </nav>
+    {% endif %}
+</header>
+
+<main class="container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flashes">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</main>
+</body>
+</html>

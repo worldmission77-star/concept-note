@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}전체 노트 - 관리자{% endblock %}
+{% block content %}
+<div class="list-header">
+    <h1>전체 개념노트</h1>
+</div>
+
+<form method="get" class="filter-bar">
+    <label>학생
+        <select name="student_id">
+            <option value="">전체</option>
+            {% for s in students %}
+            <option value="{{ s['id'] }}" {% if selected_student_id == s['id']|string %}selected{% endif %}>
+                {{ s['name'] }} ({{ s['grade'] }})
+            </option>
+            {% endfor %}
+        </select>
+    </label>
+    <label>시작일
+        <input type="date" name="date_from" value="{{ date_from }}">
+    </label>
+    <label>종료일
+        <input type="date" name="date_to" value="{{ date_to }}">
+    </label>
+    <button type="submit">필터 적용</button>
+    <a class="btn-secondary" href="{{ url_for('admin_dashboard') }}">초기화</a>
+</form>
+
+{% if notes|length == 0 %}
+<p class="empty">조건에 맞는 노트가 없습니다.</p>
+{% else %}
+<div class="admin-note-list">
+    {% for note in notes %}
+    <a class="admin-note-row" href="{{ url_for('admin_note_detail', note_id=note['id']) }}">
+        {% if note['photo_filename'] %}
+        <div class="admin-note-thumb">
+            <img src="{{ url_for('uploaded_file', filename=note['photo_filename']) }}" alt="첨부 사진">
+        </div>
+        {% else %}
+        <div class="admin-note-thumb admin-note-thumb-empty">📝</div>
+        {% endif %}
+        <div class="admin-note-body">
+            <div class="admin-note-meta">
+                <span class="admin-note-student">{{ note['student_name'] }} ({{ note['grade'] }})</span>
+                <span class="note-date">{{ note['note_date'] }}</span>
+                {% if note['checked_at'] %}<span class="badge-checked">✅ 선생님 확인</span>{% endif %}
+                {% if note['parent_checked_at'] %}<span class="badge-checked badge-parent-checked">👪 학부모님 확인</span>{% endif %}
+            </div>
+            <div class="note-title">{{ note['title'] }}</div>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+{% endif %}
+{% endblock %}
