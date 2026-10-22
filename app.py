@@ -609,7 +609,7 @@ def parent_note_confirm(token):
             (note["id"],),
         )
         db.commit()
-    return redirect(url_for("parent_note_view", token=token))
+    return redirect(url_for("parent_note_view", token=token, confirmed=1))
 
 
 # Ensure the DB exists whether run via `python app.py` (dev) or a WSGI

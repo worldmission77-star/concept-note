@@ -78,5 +78,11 @@
         {% endif %}
     </div>
 </main>
+
+{% if request.args.get('confirmed') %}
+<script>
+alert('확인해주셔서 감사합니다.');
+</script>
+{% endif %}
 </body>
 </html>
