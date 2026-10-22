@@ -470,6 +470,28 @@ def admin_student_delete(student_id):
     return redirect(url_for("admin_students"))
 
 
+DEFAULT_RESET_PASSWORD = "1111"
+
+
+@app.route("/admin/students/<int:student_id>/reset-password", methods=["POST"])
+@admin_required
+def admin_student_reset_password(student_id):
+    db = get_db()
+    student = db.execute(
+        "SELECT * FROM users WHERE id = ? AND is_admin = 0", (student_id,)
+    ).fetchone()
+    if student is None:
+        abort(404)
+
+    db.execute(
+        "UPDATE users SET password_hash = ? WHERE id = ?",
+        (generate_password_hash(DEFAULT_RESET_PASSWORD), student_id),
+    )
+    db.commit()
+    flash(f"{student['name']} 학생의 비밀번호가 '{DEFAULT_RESET_PASSWORD}'로 초기화되었습니다.")
+    return redirect(url_for("admin_students"))
+
+
 def get_any_note_or_404(note_id):
     db = get_db()
     note = db.execute(
